@@ -1,0 +1,161 @@
+.login{
+	position:absolute;
+	top: 55%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+    width: 50%;
+    height: 430px;
+    background-color: white;
+    border-radius:20px;
+}
+.login input{
+	width: 90%;
+	height: 30px;
+	padding-left: 20px;
+	border-radius:20px;
+	border-color: rgba(0, 0, 0, 0.25);
+}
+.find1, .find2{
+	position:absolute;
+	top: 55%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+    width: 50%;
+    background-color: white;
+    border-radius:20px;
+}
+.find1{
+	height: 250px;
+}
+.find2{
+	height: 300px;
+}
+.find1 input, .find2 input{
+	width: 90%;
+	height: 30px;
+	padding-left: 20px;
+	border-radius:20px;
+	border-color: rgba(0, 0, 0, 0.25);
+}
+
+.c{
+	cursor: pointer;
+}
+
+.content, .content1{
+	max-width: 90%;
+	margin: 100px auto;
+}
+.flexbox, .flexbox1{
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1em;
+}
+.item, .item1{
+	min-height: 150px;
+	flex-basis: 150px;
+	flex-grow: 1;
+	border: 1px solid;
+	border-color: rgba(0, 0, 0, 0.25);
+	border-radius:20px;
+	text-align: center;
+	cursor: pointer;
+	padding: 70px 0;
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .login{
+	width: 80%;
+	}
+	.login input{
+		padding: 0;
+		text-align: center;
+	}
+	.find1{
+		top: 50%;
+	}
+	.find1, .find2{
+		width: 80%;
+	}
+	.find1 input, .find2 input{
+		padding: 0;
+		text-align: center;
+	}
+	.content{
+		margin: 50px auto;
+	}
+	.flexbox{
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1em;
+	}
+	.item{
+		min-height: 150px;
+		flex-basis: 150px;
+		flex-grow: 1;
+		border: 1px solid;
+		border-color: rgba(0, 0, 0, 0.25);
+		border-radius:20px;
+		text-align: center;
+		cursor: pointer;
+		padding: 70px 0;
+	}
+}
+@media only screen and (max-device-width: 768px) {
+  .login{
+	width: 80%;
+	}
+	.login input{
+		padding: 0;
+		text-align: center;
+	}
+	.find1{
+		top: 50%;
+	}
+	.find1, .find2{
+		width: 80%;
+	}
+	.find1 input, .find2 input{
+		padding: 0;
+		text-align: center;
+	}
+	.content{
+		margin: 30px auto;
+	}
+	.flexbox{
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1em;
+	}
+	.item{
+		min-height: 100px;
+		flex-basis: 100px;
+		flex-grow: 1;
+		border: 1px solid;
+		border-color: rgba(0, 0, 0, 0.25);
+		border-radius:20px;
+		text-align: center;
+		cursor: pointer;
+		padding: 40px 0;
+	}
+	.content1{
+		margin: 0 auto;
+	}
+	.flexbox1{
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1em;
+	}
+	.item1{
+		min-height: 100px;
+		flex-basis: 180px;
+		flex-grow: 1;
+		border: 1px solid;
+		border-color: rgba(0, 0, 0, 0.25);
+		border-radius:20px;
+		text-align: center;
+		cursor: pointer;
+		padding: 40px 0;
+	}
+}
