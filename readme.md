@@ -25,7 +25,7 @@
 		<url-pattern>/index.jsp</url-pattern>
 	</servlet-mapping>
 ```
-* 메인페이지 제외 annotation WebServlet 설정 -> main/java/com/controller
+* 메인페이지 제외 annotation으로 WebServlet 설정 -> main/java/com/controller
 ```
 import javax.servlet.annotation.*;
 
@@ -33,7 +33,7 @@ import javax.servlet.annotation.*;
 public class FileController extends HttpServlet {
 ....
 ```
-* switch case를 사용 URI 추가 WebServlet 설정 
+* switch case를 사용 추가 URI WebServlet 설정 
 ```
 // ex
 public class FileController extends HttpServlet {
@@ -71,9 +71,85 @@ public class FileController extends HttpServlet {
 }
 ...
 ```
-
 ### 2. 페이지 초기화
+1. 필터 (main/java/com/filter/CommonFilter.java)
+* doFilter() : 헤더와 푸터 설정
+```
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
+		
+		BootStrap.init(request, response); // 사이트 초기화!
+		
+		if (isPrintOk(request)) {
+			printHeader(request, response);
+		}
+		
+		chain.doFilter(request, response); // 헤더(위) 와 푸터(아래) 설정
+		
+		if (isPrintOk(request)) {
+			printFooter(request, response);
+		}	
+	}
+```
+* printHeader() : 공통헤드 출력 과 헤더(시멘틱테그-inc폴더) 추가 
+```
+	private void printHeader(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html; charset=utf-8");
+		RequestDispatcher rd = request.getRequestDispatcher("/views/outline/header/main.jsp");
+		rd.include(request, response);
+		
+		/** 헤더 추가 영역 처리 */
+		Config config = Config.getInstance();
+		String addonURL = config.getHeaderAddon();
+		if (addonURL != null) {
+			RequestDispatcher inc = request.getRequestDispatcher(addonURL);
+			inc.include(request, response);
+		}
+	}
+```
+* printFooter() : 공통푸터 출력과 푸터(시멘틱테그-inc폴더) 추가
+```
+	private void printFooter(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+		
+		/** 푸터 추가 영역 처리 */
+		Config config = Config.getInstance();
+		String addonURL = config.getFooterAddon();
+		if (addonURL != null) {
+			RequestDispatcher inc = request.getRequestDispatcher(addonURL);
+			inc.include(request, response);
+		}
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/views/outline/footer/main.jsp");
+		rd.include(request, response);
+	}
+```
+* isPrintOk() : 헤더와 푸터의 출력 여부를 결정한다.
 
+2. 사이트 초기화 (main/java/com/core/BootStrap.java)
+* init() : 사이트 초기화(doFilter에서 설정)
+```
+	public static void init(ServletRequest request, ServletResponse response) throws IOException, ServletException {
+		/** Req, Res 인스턴스 설정 */
+		Req.set(request);
+		Res.set(response);
+		
+		/** 사이트 설정 초기화 */
+		Config.init();
+		
+		/** 로거 초기화 */
+		Logger.init();
+		
+		/** 접속자 정보 로그 */
+		Logger.log(request);
+		
+		/** 로그인 유지 */
+		String URI = Req.get().getRequestURI();
+		if (URI.indexOf("/resources") == -1) {
+			MemberDao.init();
+		}
+		/** 공통 속성 설정 처리 */
+		setAttributes();
+	}
+```
 ### 3. 회원가입
 
 ### 4. 로그인
